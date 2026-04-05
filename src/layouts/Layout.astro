@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import IconGradients from '../components/IconGradients.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Carrily — Your Smart Shopping Companion", 
+	description = "Carrily is a smart shopping list app that helps you organize, plan, and track your purchases. Works offline, supports categories, tax calculations, and purchase history." 
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const prefix = lang === 'en' ? '' : `/${lang}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="shopping list, grocery list, carrily, mohasir, shopping assistant, offline app" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content="Organize, plan, and track your purchases with a premium dark-themed shopping list app." />
+		<meta property="og:image" content="https://carrily.mohasir.com/hero-mockup.png" />
+		<meta property="og:url" content="https://carrily.mohasir.com" />
+		<meta name="twitter:card" content="summary_large_image" />
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	</head>
+	<body class="bg-bg-primary text-text-primary font-inter leading-relaxed overflow-x-hidden">
+		<IconGradients />
+		<slot />
+
+		<footer class="py-12 px-8 border-t border-border-custom max-w-[1100px] mx-auto flex flex-wrap items-center justify-between gap-4">
+			<div class="text-text-muted text-[0.85rem]">{t('footer.rights')}</div>
+			<ul class="flex gap-8 list-none">
+				<li><a href={`${prefix}/privacy-policy`} class="text-text-secondary no-underline text-[0.85rem] transition-colors hover:text-accent">{t('footer.privacy')}</a></li>
+			</ul>
+		</footer>
+
+		<script is:inline>
+			// Observe elements for reveal animation
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.1 });
+			
+			// Initial run as well as re-run on client-side navigation (if any)
+			const setupAnimations = () => {
+				document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+			};
+			
+			setupAnimations();
+		</script>
+	</body>
+</html>

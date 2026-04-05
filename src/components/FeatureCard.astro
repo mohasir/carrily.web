@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: any; // Lucide icon component
+  delay?: string;
+  id?: string;
+}
+
+const { title, description, icon: Icon, delay = "delay-1", id = "" } = Astro.props;
+const featureId = id || title.toLowerCase().replace(/\s+/g, '-');
+---
+
+<article 
+  class:list={[
+    "feature-card group relative flex flex-col bg-bg-card border border-border-custom hover:border-accent/30 rounded-xl xl:rounded-2xl overflow-hidden justify-center transition-all duration-500 animate aspect-square",
+    delay
+  ]}
+  aria-labelledby={`feature-card-${featureId}`}
+  aria-describedby={`feature-card-${featureId}-description`}
+> 
+  <!-- Visual Section -->
+  <div class="pt-4 px-4 lg:pt-6 min-h-[50%] flex items-center justify-center relative overflow-hidden" aria-hidden="true">
+    <!-- Outer Glow/Gradient Mask -->
+    <div class="absolute inset-0 size-full opacity-30 group-hover:opacity-70 transition duration-500 [mask-image:radial-gradient(closest-side,#ffffff_40%,transparent_100%)]">
+      <!-- Grid Mask Inner -->
+      <div class="w-full h-full [mask-image:radial-gradient(#fff_0.5px,transparent_0.5px)] [mask-size:5px_5px] bg-blue-purple-gradient"></div>
+    </div>
+
+    <!-- Centered Icon (replacing the large "0") -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out opacity-40 group-hover:opacity-100 group-hover:scale-110 flex items-center justify-center">
+      <Icon 
+        class="feature-icon size-32 drop-shadow-2xl transition-all duration-500" 
+        stroke-width={2.5}
+      />
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="p-4 xl:p-6 xl:pt-3 space-y-3 relative z-10 bg-gradient-to-t from-bg-card via-bg-card/80 to-transparent">
+    <h3 id={`feature-card-${featureId}`} class="text-[1.25rem] font-bold tracking-tight bg-gradient-to-b from-white via-white/90 to-white/30 bg-clip-text text-transparent pb-1 group-hover:from-accent group-hover:to-accent transition-all duration-300">
+      {title}
+    </h3>
+    <p id={`feature-card-${featureId}-description`} class="text-text-secondary font-medium text-sm xl:text-[0.95rem] leading-relaxed line-clamp-3">
+      {description}
+    </p>
+  </div>
+</article>
+
+<style>
+  .bg-blue-purple-gradient {
+    background-image: linear-gradient(83.21deg, #3245ff, #b845ed);
+  }
+
+  /* Custom Mask Utilities */
+  .[mask-image\:radial-gradient\(#fff_0\.5px\,transparent_0\.5px\)] {
+    -webkit-mask-image: radial-gradient(#fff .5px, transparent .5px);
+    mask-image: radial-gradient(#fff .5px, transparent .5px);
+  }
+  .[mask-size\:5px_5px] {
+    -webkit-mask-size: 5px 5px;
+    mask-size: 5px 5px;
+  }
+  .[mask-image\:radial-gradient\(closest-side\ ,\#ffffff_40\%\,transparent_100\%\)] {
+    -webkit-mask-image: radial-gradient(closest-side, #ffffff 40%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #ffffff 40%, transparent 100%);
+  }
+
+  .feature-icon {
+    stroke: #5a5a6e; /* Solid gray default (text-muted) */
+    transition: all 0.5s ease-in-out;
+  }
+
+  .group:hover .feature-icon {
+    stroke: var(--color-accent); /* Solid accent color on hover */
+  }
+
+  .feature-card {
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  }
+</style>

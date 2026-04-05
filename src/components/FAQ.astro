@@ -1,0 +1,126 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Plus } from '@lucide/astro';
+import SectionHeader from './SectionHeader.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const faqs = [
+  {
+    question: t('faq.q1'),
+    answer: t('faq.a1')
+  },
+  {
+    question: t('faq.q2'),
+    answer: t('faq.a2')
+  },
+  {
+    question: t('faq.q3'),
+    answer: t('faq.a3')
+  },
+  {
+    question: t('faq.q4'),
+    answer: t('faq.a4')
+  },
+  {
+    question: t('faq.q5'),
+    answer: t('faq.a5')
+  }
+];
+---
+
+<section id="faq" class="py-32 px-8 max-w-[800px] mx-auto relative">
+  <SectionHeader 
+    label={t('faq.label')} 
+    title={t('faq.title')} 
+    description={t('faq.description')}
+  />
+
+  <div class="flex flex-col gap-4 relative z-10 w-full animate delay-3">
+    {faqs.map((faq, index) => (
+      <div 
+        class="faq-item group bg-bg-card border border-border-custom rounded-custom overflow-hidden transition-all duration-300 hover:border-text-muted/50"
+        data-index={index}
+      >
+        <button
+          class="faq-header w-full text-left p-6 sm:p-8 flex items-center justify-between cursor-pointer select-none focus:outline-none"
+          aria-expanded="false"
+        >
+          <h3 class="text-[1.1rem] font-bold tracking-tight text-white group-hover:text-accent transition-colors duration-300">
+            {faq.question}
+          </h3>
+          <div class="faq-icon-container relative w-6 h-6 flex items-center justify-center text-text-muted transition-transform duration-500">
+             <Plus class="w-5 h-5 transition-all duration-500 transform group-[.active]:rotate-45 group-[.active]:text-accent" />
+          </div>
+        </button>
+        <div 
+          class="faq-content transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+          style="max-height: 0; opacity: 0;"
+        >
+          <div class="px-6 sm:px-8 pb-8 text-text-secondary text-[1.05rem] leading-relaxed border-t border-border-custom/30 pt-6">
+            {faq.answer}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const header = item.querySelector('.faq-header');
+      const content = item.querySelector('.faq-content');
+      
+      header.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+            const otherContent = otherItem.querySelector('.faq-content');
+            otherContent.style.maxHeight = '0';
+            otherContent.style.opacity = '0';
+            otherItem.querySelector('.faq-header').setAttribute('aria-expanded', 'false');
+          }
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+          item.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + "px";
+          content.style.opacity = "1";
+          header.setAttribute('aria-expanded', 'true');
+        } else {
+          item.classList.remove('active');
+          content.style.maxHeight = '0';
+          content.style.opacity = '0';
+          header.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  initFAQ();
+
+  // Run on View Transitions navigation
+  document.addEventListener('astro:after-swap', initFAQ);
+</script>
+
+<style>
+  .faq-item.active {
+    background-color: var(--color-bg-card-hover);
+    border-color: rgba(79, 195, 247, 0.3);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .faq-header:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+</style>

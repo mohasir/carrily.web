@@ -1,0 +1,22 @@
+---
+/**
+ * Global SVG Gradients for Icons
+ * This component defines available gradients that can be referenced by ID
+ * in SVG attributes like stroke="url(#id)"
+ */
+---
+<svg width="0" height="0" class="absolute pointer-events-none opacity-0 invisible" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- The main blue-purple gradient matching the masks -->
+    <linearGradient id="feature-icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3245ff" />
+      <stop offset="100%" stop-color="#b845ed" />
+    </linearGradient>
+
+    <!-- A brighter version for hover states if needed, or we can use the same -->
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7" />
+      <stop offset="100%" stop-color="#AB47BC" />
+    </linearGradient>
+  </defs>
+</svg>

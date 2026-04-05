@@ -1,0 +1,59 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import SectionHeader from './SectionHeader.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<section class="py-28 px-8 max-w-[1000px] mx-auto" id="how-it-works">
+  <SectionHeader 
+    label={t('howItWorks.label')} 
+    title={t('howItWorks.title')} 
+    description={t('howItWorks.description')}
+  />
+  
+  <div class="relative flex flex-col gap-16 ml-4 md:ml-20">
+    <!-- Vertical Gradient Line -->
+    <div class="absolute left-[23px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-accent via-purple to-transparent opacity-50"></div>
+
+    <div class="flex gap-10 animate relative">
+      <div class="w-12 h-12 min-w-[48px] rounded-full bg-black border-2 border-accent flex items-center justify-center font-bold text-[1.1rem] text-accent relative z-10 shadow-[0_0_15px_rgba(79,195,247,0.2)]">1</div>
+      <div class="pt-2">
+        <h3 class="text-[1.4rem] font-bold mb-3 text-white tracking-tight">{t('howItWorks.step1.title')}</h3>
+        <p class="text-text-secondary text-[1.05rem] leading-relaxed max-w-[650px]">
+          {t('howItWorks.step1.desc')}
+        </p>
+      </div>
+    </div>
+    
+    <div class="flex gap-10 animate delay-1 relative">
+      <div class="w-12 h-12 min-w-[48px] rounded-full bg-black border-2 border-accent flex items-center justify-center font-bold text-[1.1rem] text-accent relative z-10 shadow-[0_0_15px_rgba(79,195,247,0.2)]">2</div>
+      <div class="pt-2">
+        <h3 class="text-[1.4rem] font-bold mb-3 text-white tracking-tight">{t('howItWorks.step2.title')}</h3>
+        <p class="text-text-secondary text-[1.05rem] leading-relaxed max-w-[650px]">
+          {t('howItWorks.step2.desc')}
+        </p>
+      </div>
+    </div>
+    
+    <div class="flex gap-10 animate delay-2 relative">
+      <div class="w-12 h-12 min-w-[48px] rounded-full bg-black border-2 border-accent flex items-center justify-center font-bold text-[1.1rem] text-accent relative z-10 shadow-[0_0_15px_rgba(79,195,247,0.2)]">3</div>
+      <div class="pt-2">
+        <h3 class="text-[1.4rem] font-bold mb-3 text-white tracking-tight">{t('howItWorks.step3.title')}</h3>
+        <p class="text-text-secondary text-[1.05rem] leading-relaxed max-w-[650px]">
+          {t('howItWorks.step3.desc')}
+        </p>
+      </div>
+    </div>
+    
+    <div class="flex gap-10 animate delay-3 relative">
+      <div class="w-12 h-12 min-w-[48px] rounded-full bg-black border-2 border-accent flex items-center justify-center font-bold text-[1.1rem] text-accent relative z-10 shadow-[0_0_15px_rgba(79,195,247,0.2)]">4</div>
+      <div class="pt-2">
+        <h3 class="text-[1.4rem] font-bold mb-3 text-white tracking-tight">{t('howItWorks.step4.title')}</h3>
+        <p class="text-text-secondary text-[1.05rem] leading-relaxed max-w-[650px]">
+          {t('howItWorks.step4.desc')}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

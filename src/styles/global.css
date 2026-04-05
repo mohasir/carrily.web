@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #050507;
+  --color-bg-secondary: #0c0c10;
+  --color-bg-card: rgb(12, 15, 25);
+  --color-bg-card-hover: rgb(18, 22, 36);
+  --color-accent: #007AFF;
+  --color-accent-glow: rgba(0, 122, 255, 0.15);
+  --color-accent-dark: #0288D1;
+  --color-green: #66BB6A;
+  --color-orange: #FFA726;
+  --color-red: #EF5350;
+  --color-purple: #AB47BC;
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #9898a8;
+  --color-text-muted: #5a5a6e;
+  --color-border-custom: #1e1e2a;
+
+  --radius-custom: 16px;
+  --radius-custom-sm: 10px;
+
+  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+}
+
+/* ─── BASE STYLES ─── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-bg-primary text-text-primary font-inter leading-relaxed overflow-x-hidden;
+  }
+
+  * {
+    @apply m-0 p-0 box-border;
+  }
+}
+
+/* ─── UTILITIES & COMPONENTS ─── */
+@layer components {
+  .animate {
+    opacity: 0;
+    animation: fade-up 0.6s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-accent text-black px-8 py-3.5 rounded-full font-bold text-base no-underline transition-all border-none cursor-pointer hover:bg-[#81D4FA] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 bg-bg-card text-text-primary px-8 py-3.5 rounded-full font-semibold text-base no-underline border border-border-custom transition-all hover:bg-bg-card-hover hover:border-text-muted;
+  }
+
+  .section-label {
+    @apply inline-block text-[0.75rem] font-bold uppercase tracking-[2px] text-accent mb-4;
+  }
+
+  .section-title {
+    @apply text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold tracking-[-1.5px] mb-4;
+  }
+
+  .section-header {
+    @apply text-center mb-16;
+  }
+}

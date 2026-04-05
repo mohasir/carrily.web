@@ -1,11 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import HowItWorks from '../components/HowItWorks.astro';
-import FAQ from '../components/FAQ.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import Features from '../components/Features.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import FAQ from '../../components/FAQ.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import Features from '../../components/Features.astro';
 import { 
   Download, 
   WifiOff, 
@@ -18,7 +18,7 @@ const t = useTranslations(lang);
 const prefix = lang === 'en' ? '' : `/${lang}`;
 ---
 
-<Layout title="Carrily — Your Smart Shopping Companion">
+<Layout title="Carrily — Tu compañero inteligente de compras">
   <Nav />
   <main>
     <section class="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-32 pb-16 relative overflow-hidden">

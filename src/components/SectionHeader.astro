@@ -1,0 +1,53 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  description?: string;
+  align?: 'center' | 'left';
+  showGlow?: boolean;
+  className?: string;
+}
+
+const { 
+  label, 
+  title, 
+  description, 
+  align = 'center', 
+  showGlow = true,
+  className = "" 
+} = Astro.props;
+---
+
+<header class:list={[
+  "section-header relative z-10",
+  align === 'center' ? 'text-center' : 'text-left',
+  "mb-16",
+  className
+]}>
+  {showGlow && (
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[500px] h-[400px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none -z-10 opacity-50 blur-2xl"></div>
+  )}
+  
+  <span class="section-label animate inline-block">{label}</span>
+  
+  <h2 class="section-title animate delay-1 bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent pb-1">
+    {title}
+  </h2>
+  
+  {description && (
+    <p class:list={[
+      "text-text-secondary max-w-[600px] animate delay-2 text-[1.1rem] leading-relaxed",
+      align === 'center' ? 'mx-auto' : 'ml-0'
+    ]}>
+      {description}
+    </p>
+  )}
+</header>
+
+<style>
+  /* Ensure the title doesn't cut off some descenders with the gradient clip */
+  .section-title {
+    line-height: 1.2;
+    padding-bottom: 0.1em;
+  }
+</style>
