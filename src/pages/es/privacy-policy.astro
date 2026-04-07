@@ -1,105 +1,18 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
+import Layout from '@layouts/Layout.astro';
+import Nav from '@shared/Nav.astro';
+import Hero from '@privacy/sections/Hero.section.astro';
+import Content from '@privacy/sections/Content.section.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout title="Política de Privacidad — Carrily">
+<Layout title={`${t('privacy.title')} — Carrily`}>
     <Nav />
     <div class="max-w-[720px] mx-auto py-32 px-4">
-        <h1 class="text-[2.5rem] font-bold mb-2 text-white light:text-[#09090b]">Política de Privacidad</h1>
-        <p class="text-[#a1a1aa] text-[0.9rem] mb-12 light:text-[#71717a]">Última actualización: Abril 2026</p>
-
-        <section class="space-y-6 text-[1.05rem] leading-relaxed">
-            <p>
-                En <strong class="text-white light:text-black">Mohasir</strong>, valoramos tu privacidad. Esta política describe cómo la aplicación
-                <strong class="text-white light:text-black">Carrily</strong> maneja tus datos.
-            </p>
-
-            <div class="bg-bg-card border border-border-custom rounded-xl p-8 my-8 light:bg-white light:border-[#e4e4e7]">
-                <strong class="text-accent light:text-[#0284c7]">Resumen:</strong> Carrily almacena todos tus datos localmente en tu dispositivo.
-                No recopilamos, transmitimos ni compartimos ninguna información personal con terceros.
-            </div>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">1. Datos almacenados por la aplicación</h2>
-            <p>Carrily almacena la siguiente información <strong class="text-white light:text-black">exclusivamente en tu dispositivo</strong>, utilizando una base de datos local (SQLite):</p>
-            <ul class="list-disc pl-6 mb-6 space-y-3">
-                <li>Listas de compras y sus productos (nombres, precios, cantidades, notas)</li>
-                <li>Categorías de productos</li>
-                <li>Registros del historial de compras</li>
-                <li>Fotografías de productos y recibos</li>
-                <li>Preferencias de configuración (moneda, idioma, tasa de impuestos)</li>
-            </ul>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">2. Datos que NO recopilamos</h2>
-            <p>Carrily <strong class="text-white light:text-black">no recopila, transmite ni comparte</strong> ningún dato con servidores externos. Específicamente:</p>
-            <ul class="list-disc pl-6 mb-6 space-y-3">
-                <li>No recopilamos información de identificación personal</li>
-                <li>No utilizamos servicios de análisis (Google Analytics, Firebase Analytics, etc.)</li>
-                <li>No mostramos anuncios</li>
-                <li>No rastreamos tu actividad</li>
-                <li>No enviamos datos a nuestros propios servidores ni a terceros</li>
-            </ul>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">3. Permisos del dispositivo</h2>
-            <p>La aplicación puede solicitar los siguientes permisos:</p>
-            <ul class="list-disc pl-6 mb-6 space-y-3">
-                <li><strong class="text-white light:text-black">Cámara:</strong> Para tomar fotografías de productos y recibos de compra. Las imágenes se almacenan únicamente en el almacenamiento local de la aplicación.</li>
-                <li><strong class="text-white light:text-black">Galería de fotos:</strong> Para seleccionar imágenes existentes de tu galería y adjuntarlas a productos o compras.</li>
-                <li><strong class="text-white light:text-black">Ubicación (opcional):</strong> Para registrar la ubicación de tus compras si lo autorizas. Esta información se almacena solo localmente en tu dispositivo.</li>
-            </ul>
-            <p>Todos estos permisos son opcionales y puedes denegar cualquiera de ellos. La aplicación continuará funcionando correctamente sin ellos, simplemente sin las funciones asociadas.</p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">4. Almacenamiento de datos</h2>
-            <p>
-                Todos los datos se almacenan localmente en tu dispositivo utilizando una base de datos SQLite.
-                Esto significa:
-            </p>
-            <ul class="list-disc pl-6 mb-6 space-y-3">
-                <li>La aplicación funciona completamente <strong class="text-white light:text-black">sin conexión a internet</strong></li>
-                <li>Tus datos no se sincronizan entre dispositivos</li>
-                <li>Si desinstalas la aplicación, todos los datos se eliminarán permanentemente</li>
-            </ul>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">5. Eliminación de datos</h2>
-            <p>
-                Puedes eliminar todos tus datos en cualquier momento desde
-                <strong class="text-white light:text-black">Ajustes → Almacenamiento → Eliminar todos los datos</strong> dentro de la aplicación.
-                También puedes desinstalar la aplicación, lo que eliminará automáticamente todos los datos almacenados.
-            </p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">6. Seguridad</h2>
-            <p>
-                Dado que los datos se almacenan exclusivamente en tu dispositivo, la seguridad de tu información
-                depende de las medidas de seguridad de tu propio dispositivo (bloqueo de pantalla, cifrado de dispositivo, etc.).
-            </p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">7. Servicios de terceros</h2>
-            <p>
-                Carrily <strong class="text-white light:text-black">no integra</strong> ningún servicio de terceros que recopile datos de usuario.
-                No utilizamos SDK de publicidad, análisis o rastreo de ningún tipo.
-            </p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">8. Privacidad infantil</h2>
-            <p>
-                Carrily no está dirigida específicamente a niños. No recopilamos conscientemente
-                datos de niños menores de 13 años, ya que no recopilamos datos personales de ningún usuario.
-            </p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">9. Cambios en esta política</h2>
-            <p>
-                Nos reservamos el derecho de actualizar esta política de privacidad. Cualquier cambio
-                se reflejará en esta página con una fecha de "última actualización" actualizada.
-                Te recomendamos revisar esta política periódicamente.
-            </p>
-
-            <h2 class="text-[1.5rem] font-bold text-accent mt-12 mb-6 pb-2 border-b border-border-custom light:text-[#0284c7] light:border-[#e4e4e7]">10. Contacto</h2>
-            <p>
-                Si tienes alguna pregunta o inquietud sobre esta política de privacidad,
-                puedes contactarnos en:
-            </p>
-            <p>
-                📧 <a href="mailto:sambarberena@gmail.com" class="text-accent hover:underline light:text-[#0284c7]">sambarberena@gmail.com</a>
-            </p>
-        </section>
+        <Hero />
+        <Content />
     </div>
 </Layout>

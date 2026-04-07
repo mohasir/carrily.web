@@ -18,14 +18,14 @@ const {
 } = Astro.props;
 ---
 
-<header class:list={[
+<div class:list={[
   "section-header relative z-10",
   align === 'center' ? 'text-center' : 'text-left',
   "mb-16",
   className
 ]}>
   {showGlow && (
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[500px] h-[400px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none -z-10 opacity-50 blur-2xl"></div>
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[400px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none -z-10 opacity-50 blur-2xl"></div>
   )}
   
   <span class="section-label animate inline-block">{label}</span>
@@ -42,7 +42,7 @@ const {
       {description}
     </p>
   )}
-</header>
+</div>
 
 <style>
   /* Ensure the title doesn't cut off some descenders with the gradient clip */

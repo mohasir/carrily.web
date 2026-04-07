@@ -1,0 +1,29 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Handle interpolation for "At Mohasir, we value your privacy..."
+const intro = t('privacy.intro.p1')
+  .replace('{0}', '<strong class="text-white light:text-black">Mohasir</strong>')
+  .replace('{1}', '<strong class="text-white light:text-black">Carrily</strong>');
+---
+
+<header class="mb-12">
+  <h1 class="text-[2.5rem] font-bold mb-2 text-white light:text-[#09090b]">
+    {t('privacy.title')}
+  </h1>
+  <p class="text-[#a1a1aa] text-[0.9rem] mb-12 light:text-[#71717a]">
+    {t('privacy.lastUpdated')}
+  </p>
+
+  <div class="space-y-6 text-[1.05rem] leading-relaxed">
+    <p set:html={intro} />
+
+    <div class="bg-bg-card border border-border-custom rounded-xl p-8 my-8 light:bg-white light:border-[#e4e4e7]">
+      <strong class="text-accent light:text-[#0284c7]">{t('privacy.summary.title')}</strong> 
+      {t('privacy.summary.content')}
+    </div>
+  </div>
+</header>

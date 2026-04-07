@@ -1,7 +1,3 @@
----
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import FeatureCard from './FeatureCard.astro';
-import SectionHeader from './SectionHeader.astro';
 import { 
   ListChecks, 
   Calculator, 
@@ -11,10 +7,7 @@ import {
   Globe
 } from '@lucide/astro';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-
-const features = [
+export const getFeatures = (t: any) => [
   {
     title: t('features.list.smartLists'),
     description: t('features.list.smartListsDesc'),
@@ -52,23 +45,3 @@ const features = [
     delay: "delay-6"
   }
 ];
----
-
-<section class="py-16 px-8 pb-32 max-w-[1200px] mx-auto" id="features">
-  <SectionHeader 
-    label={t('features.label')} 
-    title={t('features.title')}
-    align="center"
-  />
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    {features.map((feature) => (
-      <FeatureCard 
-        title={feature.title} 
-        description={feature.description} 
-        icon={feature.icon}
-        delay={feature.delay}
-      />
-    ))}
-  </div>
-</section>

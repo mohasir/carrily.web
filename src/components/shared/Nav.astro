@@ -1,13 +1,13 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const prefix = lang === 'en' ? '' : `/${lang}`;
 ---
-<nav class="fixed top-0 left-0 right-0 z-[100] px-8 py-4 bg-bg-primary/80 backdrop-blur-xl border-b border-border-custom flex items-center justify-between">
+<nav class="fixed top-0 left-0 right-0 z-[100] px-4 py-3 md:px-8 md:py-4 bg-bg-primary/80 backdrop-blur-xl border-b border-border-custom flex items-center justify-between">
 	<a href={`${prefix}/`} class="flex items-center gap-3 no-underline">
-		<img src="/logo.svg" alt="Carrily Logo" class="w-[150px] h-auto" />
+		<img src="/logo.svg" alt="Carrily Logo" class="w-[120px] md:w-[150px] h-auto" />
 	</a>
 	<ul class="hidden md:flex gap-8 list-none">
 		<li><a href={`${prefix}#features`} class="text-text-secondary no-underline text-[0.9rem] font-medium transition-colors hover:text-accent">{t('nav.features')}</a></li>
@@ -19,5 +19,5 @@ const prefix = lang === 'en' ? '' : `/${lang}`;
       <a href="/es/" class:list={[lang === 'es' ? 'text-accent' : 'text-text-muted hover:text-white transition-colors']}>ES</a>
     </li>
 	</ul>
-	<a href={`${prefix}#download`} class="bg-accent text-white px-5 py-2 rounded-full font-semibold text-[0.85rem] no-underline transition-all hover:brightness-110 hover:-translate-y-px hover:shadow-[0_4px_20px_var(--accent-glow)]">{t('nav.getApp')}</a>
+	<a href={`${prefix}#download`} class="bg-accent text-white px-4 py-1.5 md:px-5 md:py-2 rounded-full font-semibold text-[0.75rem] md:text-[0.85rem] no-underline transition-all hover:brightness-110 hover:-translate-y-px hover:shadow-[0_4px_20px_var(--accent-glow)]">{t('nav.getApp')}</a>
 </nav>

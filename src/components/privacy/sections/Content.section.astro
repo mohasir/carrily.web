@@ -1,0 +1,54 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import PolicySection from '@privacy/PolicySection.astro';
+
+import { getPolicySections } from '../content/policy';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const sections = getPolicySections(t);
+---
+
+<div class="space-y-6 text-[1.05rem] leading-relaxed">
+  {sections.map((section) => (
+    <PolicySection number={section.id} title={section.title}>
+      {section.p1 && <p set:html={section.p1} />}
+      
+      {section.list && (
+        <ul class="list-disc pl-6 mb-6 space-y-3">
+          {section.list.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      )}
+
+      {section.listItems && (
+        <ul class="list-disc pl-6 mb-6 space-y-3">
+          {section.listItems.map((item) => (
+            <li>
+              <strong class="text-white light:text-black">{item.title}</strong>{' '}
+              {item.content}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {section.htmlList && (
+        <ul class="list-disc pl-6 mb-6 space-y-3">
+          {section.htmlList.map((item) => (
+            <li set:html={item} />
+          ))}
+        </ul>
+      )}
+
+      {section.p2 && <p>{section.p2}</p>}
+
+      {section.isContact && (
+        <p>
+          📧 <a href="mailto:sambarberena@gmail.com" class="text-accent hover:underline light:text-[#0284c7]">sambarberena@gmail.com</a>
+        </p>
+      )}
+    </PolicySection>
+  ))}
+</div>

@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import SectionLayout from '@layouts/SectionLayout.astro';
+import SectionHeader from '@home/SectionHeader.astro';
+import { 
+  WifiOff, 
+  ShieldCheck, 
+  LayoutDashboard
+} from '@lucide/astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<SectionLayout id="about">
+  <SectionHeader 
+    label={t('about.label')} 
+    title={t('about.title')} 
+    description={t('about.description')}
+  />
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
+    <div class="flex flex-col items-center text-center animate delay-2">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#4FC3F7] to-transparent shadow-[0_0_20px_rgba(79,195,247,0.1)]">
+        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+          <WifiOff class="w-7 h-7 text-[#4FC3F7]" />
+        </div>
+      </div>
+      <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.offlineTitle')}</h3>
+      <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.offlineDesc')}</p>
+    </div>
+    
+    <div class="flex flex-col items-center text-center animate delay-3">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#AB47BC] to-transparent shadow-[0_0_20px_rgba(171,71,188,0.1)]">
+        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+          <ShieldCheck class="w-7 h-7 text-[#AB47BC]" />
+        </div>
+      </div>
+      <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.privacyTitle')}</h3>
+      <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.privacyDesc')}</p>
+    </div>
+    
+    <div class="flex flex-col items-center text-center animate delay-4">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#FFA726] to-transparent shadow-[0_0_20px_rgba(255,167,38,0.1)]">
+        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+          <LayoutDashboard class="w-7 h-7 text-[#FFA726]" />
+        </div>
+      </div>
+      <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.flexTitle')}</h3>
+      <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.flexDesc')}</p>
+    </div>
+  </div>
+</SectionLayout>

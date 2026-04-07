@@ -1,7 +1,7 @@
 ---
-import '../styles/global.css';
-import IconGradients from '../components/IconGradients.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import '@styles/global.css';
+import IconGradients from '@shared/IconGradients.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 interface Props {
 	title?: string;
@@ -54,7 +54,7 @@ const prefix = lang === 'en' ? '' : `/${lang}`;
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						entry.target.classList.add('animate');
+						entry.target.classList.add('is-visible');
 						observer.unobserve(entry.target);
 					}
 				});

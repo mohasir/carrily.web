@@ -1,0 +1,167 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: any; // Lucide icon component
+  delay?: string;
+  id?: string;
+}
+
+const { title, description, icon: Icon, delay = "delay-1", id = "" } = Astro.props;
+const featureId = id || title.toLowerCase().replace(/\s+/g, '-');
+---
+
+<article 
+  class:list={[
+    "feature-card group relative flex flex-col bg-bg-card border border-border-custom hover:border-accent/30 rounded-xl xl:rounded-2xl overflow-hidden transition-all duration-500 animate",
+    delay
+  ]}
+  data-feature-card
+  aria-labelledby={`feature-card-${featureId}`}
+  aria-describedby={`feature-card-${featureId}-description`}
+> 
+  <!-- Visual Section -->
+  <div class="visual-section pt-10 pb-2 flex items-center justify-center relative overflow-hidden" aria-hidden="true">
+    <!-- Outer Glow/Gradient Mask -->
+    <div class="glow-container absolute inset-0 size-full opacity-30 group-hover:opacity-70 transition duration-500 [mask-image:radial-gradient(closest-side,#ffffff_40%,transparent_100%)]">
+      <!-- Grid Mask Inner -->
+      <div class="w-full h-full [mask-image:radial-gradient(#fff_0.5px,transparent_0.5px)] [mask-size:5px_5px] bg-blue-purple-gradient"></div>
+    </div>
+
+    <!-- Centered Icon -->
+    <div class="icon-container relative transition-all duration-700 ease-in-out opacity-40 group-hover:opacity-100 scale-100 group-hover:scale-110 flex items-center justify-center z-10">
+      <Icon 
+        class="feature-icon size-28 md:size-32 drop-shadow-2xl transition-all duration-500" 
+        stroke-width={2.5}
+      />
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="p-6 pt-2 space-y-3 relative z-10">
+    <h3 id={`feature-card-${featureId}`} class="feature-title text-[1.25rem] font-bold tracking-tight bg-gradient-to-b from-white via-white/90 to-white/30 bg-clip-text text-transparent pb-1 group-hover:from-accent group-hover:to-accent transition-all duration-300">
+      {title}
+    </h3>
+    <p id={`feature-card-${featureId}-description`} class="text-text-secondary font-medium text-sm xl:text-[0.95rem] leading-relaxed">
+      {description}
+    </p>
+  </div>
+</article>
+
+<script is:inline>
+  function initFeatureCards() {
+    const cards = document.querySelectorAll('[data-feature-card]');
+    if (cards.length === 0) return;
+
+    const setupFocusObserver = () => {
+      const isMobile = window.innerWidth < 640;
+      if (!isMobile) {
+        cards.forEach(card => card.classList.remove('scroll-focused'));
+        return;
+      }
+
+      const focusObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-focused');
+          } else {
+            entry.target.classList.remove('scroll-focused');
+          }
+        });
+      }, { 
+        rootMargin: '-35% 0px -35% 0px',
+        threshold: 0.2
+      });
+
+      cards.forEach(card => focusObserver.observe(card));
+    };
+
+    setupFocusObserver();
+    window.addEventListener('resize', setupFocusObserver);
+  }
+
+  initFeatureCards();
+  document.addEventListener('astro:after-swap', initFeatureCards);
+</script>
+
+<style>
+  .bg-blue-purple-gradient {
+    background-image: linear-gradient(83.21deg, #3245ff, #b845ed);
+  }
+
+  /* Custom Mask Utilities */
+  .[mask-image\:radial-gradient\(#fff_0\.5px\,transparent_0\.5px\)] {
+    -webkit-mask-image: radial-gradient(#fff .5px, transparent .5px);
+    mask-image: radial-gradient(#fff .5px, transparent .5px);
+  }
+  .[mask-size\:5px_5px] {
+    -webkit-mask-size: 5px 5px;
+    mask-size: 5px 5px;
+  }
+  .[mask-image\:radial-gradient\(closest-side\ ,\#ffffff_40\%\,transparent_100\%\)] {
+    -webkit-mask-image: radial-gradient(closest-side, #ffffff 40%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #ffffff 40%, transparent 100%);
+  }
+
+  .feature-icon {
+    stroke: #5a5a6e;
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* FULL HOVER EFFECT PARITY */
+  .group:hover .feature-icon,
+  .feature-card.scroll-focused .feature-icon {
+    stroke: var(--color-accent) !important;
+  }
+
+  .feature-card.scroll-focused .glow-container,
+  .feature-card:hover .glow-container {
+    opacity: 0.7 !important;
+  }
+
+  .feature-card.scroll-focused .icon-container,
+  .feature-card:hover .icon-container { 
+    opacity: 1 !important; 
+    transform: scale(1.1) !important; 
+  }
+
+  .feature-card.scroll-focused .feature-title,
+  .feature-card:hover .feature-title { 
+    color: var(--color-accent) !important;
+    background-image: linear-gradient(to bottom right, var(--color-accent), var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .feature-card {
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.05);
+    height: 100%;
+    min-height: 280px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .feature-card:hover,
+  .feature-card.scroll-focused {
+    border-color: rgba(79, 195, 247, 0.3) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+    transform: none !important;
+    z-index: 20;
+  }
+
+  @media (max-width: 640px) {
+    .feature-card {
+      opacity: 0.4;
+      transform: none;
+    }
+    .feature-card.scroll-focused {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .feature-card {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>

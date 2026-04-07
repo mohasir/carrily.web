@@ -1,0 +1,39 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import FeatureCard from '@home/FeatureCard.astro';
+import SectionHeader from '@home/SectionHeader.astro';
+import SectionLayout from '@layouts/SectionLayout.astro';
+import { 
+  ListChecks, 
+  Calculator, 
+  History, 
+  Tags, 
+  Camera,
+  Globe
+} from '@lucide/astro';
+
+import { getFeatures } from '../content/features';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const features = getFeatures(t);
+---
+
+<SectionLayout id="features" class="pb-32">
+  <SectionHeader 
+    label={t('features.label')} 
+    title={t('features.title')}
+    align="center"
+  />
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {features.map((feature) => (
+      <FeatureCard 
+        title={feature.title} 
+        description={feature.description} 
+        icon={feature.icon}
+        delay={feature.delay}
+      />
+    ))}
+  </div>
+</SectionLayout>

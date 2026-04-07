@@ -1,0 +1,42 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import SectionLayout from '@layouts/SectionLayout.astro';
+import { Download } from '@lucide/astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const prefix = lang === 'en' ? '' : `/${lang}`;
+---
+
+<SectionLayout 
+  class="min-h-screen pt-32 pb-16 overflow-hidden" 
+  containerClass="flex flex-col items-center justify-center text-center"
+>
+  <!-- Hero Glow -->
+  <div class="absolute -top-[200px] left-1/2 -translate-x-1/2 w-full h-[800px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none z-0"></div>
+  
+  <div class="hero-badge animate z-10 flex items-center gap-2 px-4 py-1.5 rounded-full bg-bg-card border border-border-custom text-[0.8rem] text-text-secondary mb-8 w-fit mx-auto">
+    <span class="w-1.5 h-1.5 rounded-full bg-green animate-[pulse-dot_2s_infinite]"></span>
+    {t('hero.badge')}
+  </div>
+  
+  <h1 class="animate delay-1 z-10 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold tracking-tighter leading-[1.1] mb-6">
+    {t('hero.title')}<br /><span class="bg-gradient-to-br from-accent to-purple bg-clip-text text-transparent">{t('hero.titleAccent')}</span>
+  </h1>
+  
+  <p class="hero-subtitle animate delay-2 z-10 text-[clamp(1rem,2vw,1.25rem)] text-text-secondary max-w-[650px] mb-10 leading-relaxed">
+    {t('hero.subtitle')}
+  </p>
+  
+  <div class="animate delay-3 z-10 flex flex-wrap justify-center gap-4 mb-16">
+    <a href={`${prefix}#download`} class="btn-primary">
+      <Download class="w-5 h-5" />
+      {t('hero.downloadBtn')}
+    </a>
+    <a href={`${prefix}#features`} class="btn-secondary">{t('hero.learnMore')}</a>
+  </div>
+  
+  <div class="animate delay-4 z-10 max-w-[720px] w-full">
+    <img src="/hero-mockup.png" alt="Carrily mockup" class="w-full rounded-custom shadow-[0_20px_60px_rgba(0,0,0,0.5)] floating" />
+  </div>
+</SectionLayout>

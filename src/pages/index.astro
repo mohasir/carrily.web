@@ -1,95 +1,20 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import HowItWorks from '../components/HowItWorks.astro';
-import FAQ from '../components/FAQ.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import Features from '../components/Features.astro';
-import { 
-  Download, 
-  WifiOff, 
-  ShieldCheck, 
-  Layout as LayoutIcon
-} from '@lucide/astro';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const prefix = lang === 'en' ? '' : `/${lang}`;
+import Layout from '@layouts/Layout.astro';
+import Nav from '@shared/Nav.astro';
+import HeroSection from '@home/sections/Hero.section.astro';
+import AboutSection from '@home/sections/About.section.astro';
+import HowItWorks from '@home/sections/HowItWorks.section.astro';
+import FAQ from '@home/sections/FAQ.section.astro';
+import Features from '@home/sections/Features.section.astro';
+import DownloadSection from '@home/sections/Download.section.astro';
 ---
 
 <Layout title="Carrily — Your Smart Shopping Companion">
   <Nav />
   <main>
-    <section class="min-h-screen flex flex-col items-center justify-center text-center px-8 pt-32 pb-16 relative overflow-hidden">
-      <!-- Hero Glow -->
-      <div class="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none z-0"></div>
-      
-      <div class="hero-badge animate z-10 flex items-center gap-2 px-4 py-1.5 rounded-full bg-bg-card border border-border-custom text-[0.8rem] text-text-secondary mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-green animate-[pulse-dot_2s_infinite]"></span>
-        {t('hero.badge')}
-      </div>
-      
-      <h1 class="animate delay-1 z-10 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold tracking-tighter leading-[1.1] mb-6">
-        {t('hero.title')}<br /><span class="bg-gradient-to-br from-accent to-purple bg-clip-text text-transparent">{t('hero.titleAccent')}</span>
-      </h1>
-      
-      <p class="hero-subtitle animate delay-2 z-10 text-[clamp(1rem,2vw,1.25rem)] text-text-secondary max-w-[650px] mb-10 leading-relaxed">
-        {t('hero.subtitle')}
-      </p>
-      
-      <div class="animate delay-3 z-10 flex flex-wrap justify-center gap-4 mb-16">
-        <a href={`${prefix}#download`} class="btn-primary">
-          <Download class="w-5 h-5" />
-          {t('hero.downloadBtn')}
-        </a>
-        <a href={`${prefix}#features`} class="btn-secondary">{t('hero.learnMore')}</a>
-      </div>
-      
-      <div class="animate delay-4 z-10 max-w-[720px] w-full">
-        <img src="/hero-mockup.png" alt="Carrily mockup" class="w-full rounded-custom shadow-[0_20px_60px_rgba(0,0,0,0.5)]" />
-      </div>
-    </section>
+    <HeroSection />
 
-    <section class="py-32 px-8 max-w-[1200px] mx-auto" id="about">
-      <SectionHeader 
-        label={t('about.label')} 
-        title={t('about.title')} 
-        description={t('about.description')}
-      />
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
-        <div class="flex flex-col items-center text-center animate delay-2">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#4FC3F7] to-transparent shadow-[0_0_20px_rgba(79,195,247,0.1)]">
-            <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
-              <WifiOff class="w-7 h-7 text-[#4FC3F7]" />
-            </div>
-          </div>
-          <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.offlineTitle')}</h3>
-          <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.offlineDesc')}</p>
-        </div>
-        
-        <div class="flex flex-col items-center text-center animate delay-3">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#AB47BC] to-transparent shadow-[0_0_20px_rgba(171,71,188,0.1)]">
-            <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
-              <ShieldCheck class="w-7 h-7 text-[#AB47BC]" />
-            </div>
-          </div>
-          <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.privacyTitle')}</h3>
-          <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.privacyDesc')}</p>
-        </div>
-        
-        <div class="flex flex-col items-center text-center animate delay-4">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center mb-8 relative p-[2px] bg-gradient-to-br from-[#FFA726] to-transparent shadow-[0_0_20px_rgba(255,167,38,0.1)]">
-            <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
-              <LayoutIcon class="w-7 h-7 text-[#FFA726]" />
-            </div>
-          </div>
-          <h3 class="text-[1.3rem] font-bold mb-4 text-white">{t('about.flexTitle')}</h3>
-          <p class="text-text-secondary text-[1.05rem] leading-relaxed">{t('about.flexDesc')}</p>
-        </div>
-      </div>
-    </section>
+    <AboutSection />
 
     <Features />
 
@@ -97,22 +22,6 @@ const prefix = lang === 'en' ? '' : `/${lang}`;
 
     <FAQ />
 
-    <section class="py-24 px-8 text-center relative" id="download">
-      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(circle,var(--color-accent-glow)_0%,transparent_70%)] pointer-events-none"></div>
-      
-      <div class="max-w-[700px] mx-auto bg-bg-card/30 backdrop-blur-3xl border border-white/5 rounded-[40px] p-16 relative z-10 shadow-[0_40px_100px_rgba(0,0,0,0.4)] overflow-hidden">
-        <div class="absolute -top-32 -left-32 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-purple/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <h2 class="text-[clamp(2rem,5vw,3rem)] font-extrabold tracking-tight mb-6 leading-tight">{t('download.title')}</h2>
-        <p class="text-text-secondary mb-12 text-[clamp(1rem,2vw,1.1rem)] max-w-[480px] mx-auto">{t('download.subtitle')}</p>
-        
-        <div class="flex flex-wrap justify-center gap-6">
-          <a href="https://play.google.com/store/apps/details?id=com.mohasir.carrily" class="transition-all hover:scale-105 active:scale-95">
-            <img src="/Google_Play_Store_badge.png" alt="Get it on Google Play" class="h-16 w-auto" />
-          </a>
-        </div>
-      </div>
-    </section>
+    <DownloadSection />
   </main>
 </Layout>
